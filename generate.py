@@ -1,4 +1,5 @@
 import numpy as np
+import os
 
 def generate_sequences(sequence_count, sequence_length):
     """
@@ -23,10 +24,21 @@ def generate_sequences(sequence_count, sequence_length):
         sequences.append(sequence_string)
             
     return sequences
+
+#def generate_binding_sites(sequence_count, sequence_length):
+    
     
 
 sc = int(input("Enter sequence count: ")) #asks user for sequence count
 sl = int(input("Enter sequence length: ")) #asks user for sequence length
 
 mySequences = generate_sequences(sc, sl) #generate
-print(mySequences) 
+fasta_file = open("\\dataset\\sequences.fasta", "w") #open file
+
+for i in range(len(mySequences)):
+    fasta_file.write(">" + "Sequence " + str(i) + "\n" + mySequences[i] + "\n") #write to fasta file
+
+fasta_file.close() #close file
+
+
+#print(mySequences) 
