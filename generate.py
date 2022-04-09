@@ -46,6 +46,9 @@ def plant_sites(sequences, sites, motif):
 #mySequences = generate_sequences(sc, sl) #generate
 #print(mySequences) 
 
+ML = 5
+SC = 20
+ICPC = 1
 
 def generate_motif(ICPC, ML, SC):
     
@@ -114,8 +117,19 @@ def generate_motif(ICPC, ML, SC):
 
     return motif
 
+motif = (generate_motif(ICPC, ML, SC))
 
-def wrte	
+def convert_motif(ML, motif):
+    with open('motif.txt', 'w') as f:
+        f.write('<MOTIF1\t' + str(ML))
+        for i in range(len(motif)):
+            f.write('\n')
+            for j in range(len(motif[i])):
+                f.write(str(motif[i][j]) + '\t')
+        f.write('\n<')
+
+convert_motif(ML, motif)
+
 
 print(generate_motif(1, 6, 20))
 
