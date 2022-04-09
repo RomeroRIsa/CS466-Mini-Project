@@ -26,6 +26,20 @@ def generate_sequences(sequence_count, sequence_length):
     return sequences
     
 
+
+def plant_sites(sequences, sites, motif):
+    ML = np.sum(motif[0])
+    motif = motif/ML
+    nuc_dict = {0: 'A', 1:'C', 2:'G', 3:'T'}
+    planted_sequences = []
+    for i, (sequence, site) in enumerate(zip(sequences,sites)):
+        seqlist = list(sequence)
+        for i, nuc in enumerate(motif):
+            seqlist[i+site] = nuc_dict[np.random.choice(np.arange(4), 1, p=nuc)[0]]
+        planted_sequences.append(''.join(seqlist))
+    return planted_sequences
+
+
 #sc = int(input("Enter sequence count: ")) #asks user for sequence count
 #sl = int(input("Enter sequence length: ")) #asks user for sequence length
 
@@ -80,7 +94,7 @@ def generate_motif(ICPC, ML, SC):
             third = "G"
             fourth = "C"
 
-        
+
         seq = {"A" : 0, "G" : 0, "C" : 0, "T" : 0}
         for j in range(0, SC):
             randNum = random()
@@ -98,22 +112,14 @@ def generate_motif(ICPC, ML, SC):
 
         motif.append(seqAdd)
 
-                
     return motif
+
+
+def wrte	
 
 print(generate_motif(1, 6, 20))
 
 
-
-
-            
-
-    
-
-
-
-    
-    
 
 
 
