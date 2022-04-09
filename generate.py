@@ -42,3 +42,41 @@ fasta_file.close() #close file
 
 
 #print(mySequences) 
+print(mySequences) 
+
+
+def generate_motif(ICPC, ML, seqList):
+    
+    motif = []
+
+    for seq in seqList:
+        for i in range(0, ML):
+            aCount = 0
+            cCount = 0
+            gCount = 0
+            tCount = 0
+            if (seq[i] == "A"):
+                aCount +=1
+            if (seq[i] == "C"):
+                cCount +=1
+            if (seq[i] == "G"):
+                gCount +=1
+            if (seq[i] == "T"):
+                tCount +=1
+
+            total = aCount + cCount + gCount + tCount
+            probA = aCount/total
+            probC= cCount/total
+            probG = gCount/total
+            probT = tCount/total
+
+            row = []
+            row.append(probA)
+            row.append(probC)
+            row.append(probG)
+            row.append(probT)
+            motif.append(row)
+            
+    
+
+
