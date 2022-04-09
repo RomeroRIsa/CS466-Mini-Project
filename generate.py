@@ -171,8 +171,12 @@ for directory in sc_default:
         
         #write into files
         for j in range(len(plantedSequences)):
-            fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j] + "\n") #write to fasta file
-            sites.write(str(mySites[j]) + "\n") #write to sites.txt 
+            if j == len(plantedSequences)-1:
+                fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j]) 
+                sites.write(str(mySites[j])) 
+            else:
+                fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j] + "\n") 
+                sites.write(str(mySites[j]) + "\n") 
         motif_length.write(str(myMotifLength))
         convert_motif(directory_dict[directory][1], myMotif, motif_file)
         
