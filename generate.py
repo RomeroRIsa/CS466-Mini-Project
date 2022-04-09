@@ -32,36 +32,42 @@ mySequences = generate_sequences(sc, sl) #generate
 print(mySequences) 
 
 
-def generate_motif(ICPC, ML, seqList):
-    
+def generate_motif(ICPC, ML, SC):
+
     motif = []
 
-    for seq in seqList:
-        for i in range(0, ML):
-            aCount = 0
-            cCount = 0
-            gCount = 0
-            tCount = 0
-            if (seq[i] == "A"):
-                aCount +=1
-            if (seq[i] == "C"):
-                cCount +=1
-            if (seq[i] == "G"):
-                gCount +=1
-            if (seq[i] == "T"):
-                tCount +=1
+    icpcDict = {1 : .8105, 1.5 : .9245, 2 : 1}
+    randNum = np.random(0,1)
+    p = icpcDict[ICPC]
 
-            total = aCount + cCount + gCount + tCount
-            probA = aCount/total
-            probC= cCount/total
-            probG = gCount/total
-            probT = tCount/total
+    probA = (1-p)/3
+    probC = (1-p)/3
+    probG = (1-p)/3
+    probT = (1-p)/3
 
-            row = []
-            row.append(probA)
-            row.append(probC)
-            row.append(probG)
-            row.append(probT)
-            motif.append(row)
+    if (randNum < .25):
+        probA = icpcDict[ICPC]
+    elif (randNum < .55):
+        probC = icpcDict[ICPC]
+    elif (randNum < .75):
+        probG = icpcDict[ICPC]
+    else:
+        probT = icpcDict[ICPC]
+
+    for i in range(0, ML):
+        seq = [0,0,0,0]
+        for j in range(0, SC):
+            randNum = np.random(0,1)
+            if(randNum <= p):
+                
+            
+
+    
+
+
+
+    
+    
+
 
 
