@@ -49,10 +49,11 @@ def generate_motif(ICPC, ML, SC):
     motif = []
 
     icpcDict = {1 : .8105, 1.5 : .9245, 2 : 1} #probabilities of each ICPC
-    randNum = random()
+    
 
     #select preferred nucleotide
     for i in range(0, ML):
+        randNum = random()
         p = icpcDict[ICPC]
         otherP = (1-p)/3
 
