@@ -85,16 +85,11 @@ def generate_motif(ICPC, ML, SC):
 
         #add 1 to nucleotide count based on probability
         seq = {"A" : 0, "G" : 0, "C" : 0, "T" : 0}
-        for j in range(0, SC):
-            randNum = random()
-            if(randNum < p):
-                seq[preffered] += 1
-            elif(randNum < p + otherP):
-                seq[second] += 1
-            elif(randNum < p + 2*otherP):
-                seq[third] += 1
-            else:
-                seq[fourth] += 1
+        seq[preffered] = p
+        seq[second] = otherP
+        seq[third] = otherP
+        seq[fourth] = otherP
+
 
         seqAdd = [seq["A"], seq["G"], seq["C"], seq["T"]]
 
