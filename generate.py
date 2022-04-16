@@ -87,9 +87,9 @@ def generate_motif(ICPC, ML, SC):
         #add 1 to nucleotide count based on probability
         seq = {"A" : 0, "G" : 0, "C" : 0, "T" : 0}
         seq[preffered] = p
-        seq[second] = otherP
-        seq[third] = otherP
-        seq[fourth] = otherP
+        seq[second] = round(otherP, 9)
+        seq[third] = round(otherP, 9)
+        seq[fourth] = round(otherP, 9)
 
 
         seqAdd = [seq["A"], seq["G"], seq["C"], seq["T"]]
@@ -125,7 +125,8 @@ def convert_motif(ML, motif, file):
         for i in range(len(motif)):
             f.write('\n')
             for j in range(len(motif[i])):
-                f.write(str(motif[i][j]) + '\t')
+                f.write('{:<12}'.format(str(motif[i][j])))
+                f.write('\t')
         f.write('\n<')
 
 sl = 500 #default value for sequence length
