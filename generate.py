@@ -109,8 +109,6 @@ def plant_sites(sequences, sites, motif):
     @motif: a list of lists with integers as elements (PWM)
     @return: a list of sequences with the motifs planted
     """
-    ML = np.sum(motif[0]) 
-    motif = motif/ML
     nuc_dict = {0: 'A', 1:'C', 2:'G', 3:'T'}
     planted_sequences = []
     for i, (sequence, site) in enumerate(zip(sequences,sites)):
