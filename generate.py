@@ -38,7 +38,7 @@ def generate_binding_sites(sequence_count, sequence_length, motif_length):
     
     return np.random.randint(0, sequence_length-motif_length-1, size=sequence_count)
 
-def generate_motif(ICPC, ML, SC):
+def generate_motif(ICPC, ML):
     """
     @param ICPC: information count per column
     @ML: motif length
