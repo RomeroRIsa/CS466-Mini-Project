@@ -44,7 +44,7 @@ def generate_motif(ICPC, ML):
     @ML: motif length
     @SC: sequence count
     Used the algorithm given in the appendix of the mini project PDF
-    @return: a list of lists with integers as the element
+    @return: a list of lists with float as the element
     """
     motif = []
 
@@ -85,14 +85,14 @@ def generate_motif(ICPC, ML):
             fourth = "C"
 
         #add 1 to nucleotide count based on probability
-        seq = {"A" : 0, "G" : 0, "C" : 0, "T" : 0}
+        seq = {"A" : 0, "C" : 0, "G" : 0, "T" : 0}
         seq[preffered] = p
         seq[second] = round(otherP, 9)
         seq[third] = round(otherP, 9)
         seq[fourth] = round(otherP, 9)
 
 
-        seqAdd = [seq["A"], seq["G"], seq["C"], seq["T"]]
+        seqAdd = [seq["A"], seq["C"], seq["G"], seq["T"]]
 
         motif.append(seqAdd)
 
@@ -155,7 +155,7 @@ for directory in sc_default:
         mySequences = generate_sequences(directory_dict[directory][2], sl)
         mySites = generate_binding_sites(directory_dict[directory][2], sl, directory_dict[directory][1])
         myMotifLength = directory_dict[directory][1]
-        myMotif = generate_motif(directory_dict[directory][0], directory_dict[directory][1], directory_dict[directory][2])
+        myMotif = generate_motif(directory_dict[directory][0], directory_dict[directory][1])
         plantedSequences = plant_sites(mySequences, mySites, myMotif)
         
         #open files    
