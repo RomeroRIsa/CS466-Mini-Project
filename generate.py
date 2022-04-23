@@ -130,7 +130,7 @@ def convert_motif(ML, motif, file):
 
 if __name__ == "__main__":
     sl = 500 #default value for sequence length
-    dirname = ['default', 'ICPC_1', 'ICPC_1.5', 'ML_6', 'ML_7', 'SC_5', 'SC_20'] 
+    directories = ['default', 'ICPC_1', 'ICPC_1.5', 'ML_6', 'ML_7', 'SC_5', 'SC_20'] 
     #dict that maps each directory with tuple of parameters (ICPC, ML, SC)
     directory_dict = {'default': (2, 8, 10),
                      'ICPC_1': (1, 8, 10),
@@ -142,8 +142,8 @@ if __name__ == "__main__":
                      }
     dirname = os.path.dirname(__file__) #path of generate.py
 
-    #generate 10 sequences and binding sites for directories in dirname
-    for directory in dirname:
+    #generate 10 sequences and binding sites for directories
+    for directory in directories:
         for i in range(1, 11):
             #join for relative path to file
             sequence_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/sequences.fasta') 
