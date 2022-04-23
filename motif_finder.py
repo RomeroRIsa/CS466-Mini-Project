@@ -4,6 +4,8 @@ import os
 from Bio import SeqIO
 import math
 import timeit
+from generate import convert_motif
+
 
 def find_best_pos(sequence, motif, background, ML):
     best_pos = 0
@@ -70,10 +72,16 @@ for x in os.scandir('dataset'):
         for fasta in fasta_sequences:
             sequence_strs.append(str(fasta.seq))
         motif, sites, time = gibbs_find_motif(sequence_strs, ML)
+        convert_motif(ML, motif, os.path.join(x.path, str(i), 'predictedmotif.txt'))
+        k = open(os.path.join(x.path, str(i), 'predictedsites.txt'), 'w')
+        site_strs = [str(i) + '\n' for i in sites]
+        site_strs[-1] = str(sites[-1])
+        k.writelines(site_strs)
         print(x.path)
         print(motif)
         f.close()
         g.close()
+        k.close()
 '''f = open("dataset/default/1/sequences.fasta", 'r')
 fasta_sequences = SeqIO.parse(f,'fasta')
 sequence_strs = []
