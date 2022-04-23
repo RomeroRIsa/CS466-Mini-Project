@@ -58,7 +58,7 @@ def gibbs_find_motif(sequence_strs, ML):
     motif[:,2] = np.count_nonzero(sequences=="G", axis=1)
     motif[:,3] = np.count_nonzero(sequences=="T", axis=1)
     stop = timeit.default_timer()
-    return motif/sequences.shape[1], sequence_pos, (stop-start)**1000
+    return motif/sequences.shape[1], sequence_pos, (stop-start)*1000
 
 
 if __name__ == "__main__":
