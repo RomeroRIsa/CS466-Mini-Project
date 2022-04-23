@@ -25,10 +25,7 @@ def find_best_pos(sequence, motif, background, ML):
     return best_pos
 
 def gibbs_find_motif(sequence_strs, ML):
-<<<<<<< HEAD
-=======
     start = timeit.default_timer()
->>>>>>> fd8ca8f644f2c82ee3eb995378de92d820c4f14f
     sequence_list = np.array([[i for i in x] for x in sequence_strs])
     background = np.zeros((sequence_list.shape[0], 4))
     background[:,0] = np.count_nonzero(sequence_list=="A", axis=1)
@@ -44,11 +41,7 @@ def gibbs_find_motif(sequence_strs, ML):
         for i in range(sequence_list.shape[0]):
             idxs = ((np.arange(0, ML, dtype=np.int64) + np.zeros((sequence_list.shape[0],1), dtype=np.int64)) + sequence_pos[:, None])
             idxs = idxs + np.repeat(np.arange(0,sequence_list.shape[0]*sequence_list.shape[1], sequence_list.shape[1]), ML, axis=0).reshape(-1,ML)
-<<<<<<< HEAD
-            sequences = np.take(sequence_list, idxs)
-=======
             sequences = sequence_list.flatten()[idxs].reshape(-1, ML)
->>>>>>> fd8ca8f644f2c82ee3eb995378de92d820c4f14f
             sequences = np.vstack((sequences[:i] ,sequences[i+1:])).T
             motif[:,0] = np.count_nonzero(sequences=="A", axis=1)
             motif[:,1] = np.count_nonzero(sequences=="C", axis=1)
@@ -59,18 +52,11 @@ def gibbs_find_motif(sequence_strs, ML):
             #print(motif)
     idxs = ((np.arange(0, ML, dtype=np.int64) + np.zeros((sequence_list.shape[0],1), dtype=np.int64)) + sequence_pos[:, None])
     idxs = idxs + np.repeat(np.arange(0,sequence_list.shape[0]*sequence_list.shape[1], sequence_list.shape[1]), ML, axis=0).reshape(-1,ML)
-<<<<<<< HEAD
-    sequences = np.take(sequence_list, idxs).T
-=======
     sequences = sequence_list.flatten()[idxs].reshape(-1, ML).T
->>>>>>> fd8ca8f644f2c82ee3eb995378de92d820c4f14f
     motif[:,0] = np.count_nonzero(sequences=="A", axis=1)
     motif[:,1] = np.count_nonzero(sequences=="C", axis=1)
     motif[:,2] = np.count_nonzero(sequences=="G", axis=1)
     motif[:,3] = np.count_nonzero(sequences=="T", axis=1)
-<<<<<<< HEAD
-    return motif/sequences.shape[1]
-=======
     stop = timeit.default_timer()
     return motif/sequences.shape[1], sequence_pos, stop-start
 
@@ -117,4 +103,3 @@ if __name__ == "__main__":
 
     print(count)
     print(motif)'''
->>>>>>> fd8ca8f644f2c82ee3eb995378de92d820c4f14f
