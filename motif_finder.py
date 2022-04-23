@@ -61,40 +61,45 @@ def gibbs_find_motif(sequence_strs, ML):
     return motif/sequences.shape[1], sequence_pos, stop-start
 
 
+if __name__ == "__main__":
 
-for x in os.scandir('dataset'):
-    for i in range(1, 11):
-        f = open(os.path.join(x.path, str(i), 'sequences.fasta'), 'r')
-        g = open(os.path.join(x.path, str(i), 'motiflength.txt'), 'r')
-        ML = int(g.readline())
-        fasta_sequences = SeqIO.parse(f,'fasta')
-        sequence_strs = []
-        for fasta in fasta_sequences:
-            sequence_strs.append(str(fasta.seq))
-        motif, sites, time = gibbs_find_motif(sequence_strs, ML)
-        convert_motif(ML, motif, os.path.join(x.path, str(i), 'predictedmotif.txt'))
-        k = open(os.path.join(x.path, str(i), 'predictedsites.txt'), 'w')
-        site_strs = [str(i) + '\n' for i in sites]
-        site_strs[-1] = str(sites[-1])
-        k.writelines(site_strs)
-        print(x.path)
-        print(motif)
-        f.close()
-        g.close()
-        k.close()
-'''f = open("dataset/default/1/sequences.fasta", 'r')
-fasta_sequences = SeqIO.parse(f,'fasta')
-sequence_strs = []
-for fasta in fasta_sequences:
-    sequence_strs.append(str(fasta.seq))
-motif, sites, _ = gibbs_find_motif(sequence_strs, 8)
-print(motif)
-print(sites)
-count = 0
-while sites[0] != 341:
+
+    for x in os.scandir('dataset'):
+        for i in range(1, 11):
+            f = open(os.path.join(x.path, str(i), 'sequences.fasta'), 'r')
+            g = open(os.path.join(x.path, str(i), 'motiflength.txt'), 'r')
+            ML = int(g.readline())
+            fasta_sequences = SeqIO.parse(f,'fasta')
+            sequence_strs = []
+            for fasta in fasta_sequences:
+                sequence_strs.append(str(fasta.seq))
+            motif, sites, time = gibbs_find_motif(sequence_strs, ML)
+            convert_motif(ML, motif, os.path.join(x.path, str(i), 'predictedmotif.txt'))
+            k = open(os.path.join(x.path, str(i), 'predictedsites.txt'), 'w')
+            j = open(os.path.join(x.path, str(i), 'runtime.txt'), 'w')
+            site_strs = [str(i) + '\n' for i in sites]
+            site_strs[-1] = str(sites[-1])
+            k.writelines(site_strs)
+            j.write(str(time))
+            print(x.path)
+            print(motif)
+            f.close()
+            g.close()
+            k.close()
+            j.close()
+    '''f = open("dataset/default/1/sequences.fasta", 'r')
+    fasta_sequences = SeqIO.parse(f,'fasta')
+    sequence_strs = []
+    for fasta in fasta_sequences:
+        sequence_strs.append(str(fasta.seq))
     motif, sites, _ = gibbs_find_motif(sequence_strs, 8)
+    print(motif)
     print(sites)
-    count +=1
+    count = 0
+    while sites[0] != 341:
+        motif, sites, _ = gibbs_find_motif(sequence_strs, 8)
+        print(sites)
+        count +=1
 
-print(count)
-print(motif)'''
+    print(count)
+    print(motif)'''
