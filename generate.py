@@ -83,8 +83,7 @@ def generate_motif(ICPC, ML):
             second = "A"
             third = "G"
             fourth = "C"
-
-        #add 1 to nucleotide count based on probability
+            
         seq = {"A" : 0, "C" : 0, "G" : 0, "T" : 0}
         seq[preffered] = p
         seq[second] = round(otherP, 9)
