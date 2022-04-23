@@ -128,56 +128,57 @@ def convert_motif(ML, motif, file):
                 f.write('\t')
         f.write('\n<')
 
-sl = 500 #default value for sequence length
-sc_default = ['default', 'ICPC_1', 'ICPC_1.5', 'ML_6', 'ML_7', 'SC_5', 'SC_20'] #directories that will have SC = 10 (default)
-#dict that maps each directory with tuple of parameters (ICPC, ML, SC)
-directory_dict = {'default': (2, 8, 10),
-                 'ICPC_1': (1, 8, 10),
-                 'ICPC_1.5': (1.5, 8, 10),
-                 'ML_6': (2, 6, 10),
-                 'ML_7': (2, 7, 10),
-                 'SC_5': (2, 8, 5),
-                 'SC_20': (2, 8, 20) 
-                 }
-dirname = os.path.dirname(__file__) #path of generate.py
+if __name__ == "__main__":
+    sl = 500 #default value for sequence length
+    sc_default = ['default', 'ICPC_1', 'ICPC_1.5', 'ML_6', 'ML_7', 'SC_5', 'SC_20'] #directories that will have SC = 10 (default)
+    #dict that maps each directory with tuple of parameters (ICPC, ML, SC)
+    directory_dict = {'default': (2, 8, 10),
+                     'ICPC_1': (1, 8, 10),
+                     'ICPC_1.5': (1.5, 8, 10),
+                     'ML_6': (2, 6, 10),
+                     'ML_7': (2, 7, 10),
+                     'SC_5': (2, 8, 5),
+                     'SC_20': (2, 8, 20) 
+                     }
+    dirname = os.path.dirname(__file__) #path of generate.py
 
-#generate 10 sequences and binding sites for directories in sc_default
-for directory in sc_default:
-    for i in range(1, 11):
-        #join for relative path to file
-        sequence_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/sequences.fasta') 
-        site_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/sites.txt')
-        motif_length_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/motiflength.txt')
-        motif_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/motif.txt')
-        
-        #generate
-        mySequences = generate_sequences(directory_dict[directory][2], sl)
-        mySites = generate_binding_sites(directory_dict[directory][2], sl, directory_dict[directory][1])
-        myMotifLength = directory_dict[directory][1]
-        myMotif = generate_motif(directory_dict[directory][0], directory_dict[directory][1])
-        plantedSequences = plant_sites(mySequences, mySites, myMotif)
-        
-        #open files    
-        fasta_file = open(sequence_file, "w")
-        sites = open(site_file, "w") 
-        motif_length = open(motif_length_file, "w")
-        motif = open(motif_file, "w")
-        
-        #write into files
-        for j in range(len(plantedSequences)):
-            if j == len(plantedSequences)-1:
-                fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j]) 
-                sites.write(str(mySites[j])) 
-            else:
-                fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j] + "\n") 
-                sites.write(str(mySites[j]) + "\n") 
-        motif_length.write(str(myMotifLength))
-        convert_motif(directory_dict[directory][1], myMotif, motif_file)
-        
-        #close files  
-        fasta_file.close()
-        sites.close()
-        motif_length.close()
+    #generate 10 sequences and binding sites for directories in sc_default
+    for directory in sc_default:
+        for i in range(1, 11):
+            #join for relative path to file
+            sequence_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/sequences.fasta') 
+            site_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/sites.txt')
+            motif_length_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/motiflength.txt')
+            motif_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/motif.txt')
+            
+            #generate
+            mySequences = generate_sequences(directory_dict[directory][2], sl)
+            mySites = generate_binding_sites(directory_dict[directory][2], sl, directory_dict[directory][1])
+            myMotifLength = directory_dict[directory][1]
+            myMotif = generate_motif(directory_dict[directory][0], directory_dict[directory][1])
+            plantedSequences = plant_sites(mySequences, mySites, myMotif)
+            
+            #open files    
+            fasta_file = open(sequence_file, "w")
+            sites = open(site_file, "w") 
+            motif_length = open(motif_length_file, "w")
+            motif = open(motif_file, "w")
+            
+            #write into files
+            for j in range(len(plantedSequences)):
+                if j == len(plantedSequences)-1:
+                    fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j]) 
+                    sites.write(str(mySites[j])) 
+                else:
+                    fasta_file.write(">" + "Sequence " + str(j+1) + "\n" + plantedSequences[j] + "\n") 
+                    sites.write(str(mySites[j]) + "\n") 
+            motif_length.write(str(myMotifLength))
+            convert_motif(directory_dict[directory][1], myMotif, motif_file)
+            
+            #close files  
+            fasta_file.close()
+            sites.close()
+            motif_length.close()
 
 
 
