@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
 
     for x in os.scandir('dataset'):
-        if x.path.startswith('dataset\\default'):
+        if x.path.startswith('dataset\\SC'):
             for i in range(1, 11):
                 f = open(os.path.join(x.path, str(i), 'sequences.fasta'), 'r')
                 g = open(os.path.join(x.path, str(i), 'motiflength.txt'), 'r')
@@ -96,7 +96,7 @@ if __name__ == "__main__":
                 g.close()
                 k.close()
                 j.close()
-    
+    '''
     f = open("dataset/default/1/sequences.fasta", 'r')
     fasta_sequences = SeqIO.parse(f,'fasta')
     sequence_strs = []
@@ -113,4 +113,4 @@ if __name__ == "__main__":
         count +=1
 
     print(count)
-    print(motif)
+    print(motif)'''
