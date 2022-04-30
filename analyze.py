@@ -37,7 +37,7 @@ def relative_entropy(motif, predicted_motif):
         real[real==0] = 1e-6
         pred[pred==0] = 1e-6
         for i in range(4): 
-            print(real)
+            #print(real)
             entropy += pred[i] * (np.log(pred[i]/real[i]))
     
     return entropy
