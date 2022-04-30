@@ -33,13 +33,14 @@ def relative_entropy(motif, predicted_motif):
         myPredictedMotif.append(predicted_motif_lines[i].strip().split("\t"))
         for j in range(len(myPredictedMotif[i-1])):
             myPredictedMotif[i-1][j] = float(myPredictedMotif[i-1][j].strip())
-            
+    myMotif = np.array(myMotif)
+    myPredictedMotif = np.array(myPredictedMotif)
     for real, pred in zip(myMotif, myPredictedMotif):
-        for i in range(4):
-            if real[i] == 0 or pred[i] == 0:
-                continue
-            else:
-                entropy += pred[i] * (np.log(pred[i]/real[i]))
+        real[real==0] = 1e-6
+        pred[pred==0] = 1e-6
+        for i in range(4): 
+            #print(real)
+            entropy += pred[i] * (np.log(pred[i]/real[i]))
     
     return entropy
 
