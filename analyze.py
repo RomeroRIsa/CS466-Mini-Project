@@ -1,4 +1,3 @@
-from filecmp import dircmp
 import os
 import numpy as np
 import numpy.linalg as la
@@ -17,7 +16,6 @@ def relative_entropy(motif, predicted_motif):
     myMotif = []
     myPredictedMotif = []
     entropy = 0 
-    
     
     with open(motif, 'r') as motif_file:
         motif_lines = motif_file.readlines()
@@ -74,6 +72,10 @@ def sites_norm(sites, predicted_sites):
     return norm, count
 
 def gibbs_runtime(runtime):
+    """
+    @param runtime: path to runtime.txt
+    @return float(myRuntime[0]): the runtime of 1 dataset
+    """
     with open(runtime, 'r') as runtime_file:
         myRuntime = runtime_file.readlines()
     
