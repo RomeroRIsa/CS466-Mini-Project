@@ -81,7 +81,8 @@ def gibbs_runtime(runtime):
     
     return float(myRuntime[0])
 
-
+#the output lists' order corresponds to this list's order, e.g. first element of entropies is the average entropy of dataset with default parameter
+#second element is the eaverage entropy of dataset with ICPC_1 parameter, and so on
 directories = ['default', 'ICPC_1', 'ICPC_1.5', 'ML_6', 'ML_7', 'SC_5', 'SC_20'] 
 dirname = os.path.dirname(__file__)
 entropies = []
