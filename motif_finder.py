@@ -96,21 +96,4 @@ if __name__ == "__main__":
                 g.close()
                 k.close()
                 j.close()
-    '''
-    f = open("dataset/default/1/sequences.fasta", 'r')
-    fasta_sequences = SeqIO.parse(f,'fasta')
-    sequence_strs = []
-    for fasta in fasta_sequences:
-        sequence_strs.append(str(fasta.seq))
-    motif, sites, _ = gibbs_find_motif(sequence_strs, 8)
-    print(motif)
-    print(sites)
-    count = 0
-    while sites[0] != 165:
-        motif, sites, _ = gibbs_find_motif(sequence_strs, 8)
-        print(sites)
-        print(motif)
-        count +=1
 
-    print(count)
-    print(motif)'''
