@@ -43,33 +43,40 @@ def relative_entropy(motif, predicted_motif):
     return entropy
 
 
-def sites_norm(sites, predicted_sites):
+def sites_norm(sites, predicted_sites, motif_length):
     """
     @param sites: path to sites.txt
     @param predicted_sites: path to predictedsites.txt
+    @param motif_length: path to motiflength.txt
     @return norm: norm of the difference of sites and predicted sites
     @return count: number of overlapping sites
+    @return overlap: overlap of binding site positions
     """
     mySites = []
     myPredictedSites = []
     count = 0
+    overlap = 0
     
     with open(sites, 'r') as sites_file:
         mySites = sites_file.readlines()
     with open(predicted_sites, 'r') as predicted_sites_file:
         myPredictedSites = predicted_sites_file.readlines()
-    
+    with open(motif_length, 'r') as motif_length_file:
+        myMotifLength = int(motif_length_file.readlines()[0])
+        
     for i in range(len(mySites)):
         mySites[i] = int(mySites[i].strip())
         myPredictedSites[i] = int(myPredictedSites[i].strip())
         if mySites[i] == myPredictedSites[i]:
             count += 1
-    
+        overlap_current = myMotifLength - abs(mySites[i] - myPredictedSites[i])
+        if overlap_current > 0:
+            overlap += overlap_current
     sites_array = np.array(mySites)
     predicted_array = np.array(myPredictedSites)
     norm = la.norm(sites_array-predicted_array)
-    
-    return norm, count
+    overlap = overlap/len(mySites)
+    return norm, count, overlap
 
 def gibbs_runtime(runtime):
     """
@@ -93,6 +100,8 @@ entropy_error = []
 norm_error = []
 runtime_error = []
 count_error = []
+overlap_list = []
+overlap_error = []
 
 for directory in directories:
     dir_entropy = []
@@ -102,29 +111,35 @@ for directory in directories:
     dir_entropy_error = []
     dir_norm_error = []
     dir_runtime_error = []
+    dir_overlap = []
+    
     for i in range(1, 11):
         predicted_motif_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/predictedmotif.txt')
         motif_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/motif.txt')
         sites_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/sites.txt')
         predicted_sites_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/predictedsites.txt')
         runtime_file = os.path.join(dirname, 'dataset/'+ directory + '/' + str(i) + '/runtime.txt')
+        motif_length_file = os.path.join(dirname, 'dataset/' + directory + '/' + str(i) + '/motiflength.txt')
         
         entropy = relative_entropy(motif_file, predicted_motif_file)
         dir_entropy.append(entropy)
-        norm, count = sites_norm(sites_file, predicted_sites_file)
+        norm, count, overlap = sites_norm(sites_file, predicted_sites_file, motif_length_file)
         dir_norm.append(norm)
         dir_count.append(count)
+        dir_overlap.append(overlap)
         runtime = gibbs_runtime(runtime_file)
         dir_runtime.append(runtime)
         
     entropies.append(sum(dir_entropy)/len(dir_entropy))
     norm_list.append(sum(dir_norm)/len(dir_norm))
     count_list.append(sum(dir_count)/len(dir_count))
+    overlap_list.append(sum(dir_overlap)/len(dir_overlap))
     runtime_list.append(sum(dir_runtime)/len(dir_runtime))
     entropy_error.append(statistics.pstdev(dir_entropy)/np.sqrt(len(dir_entropy)))
     norm_error.append(statistics.pstdev(dir_norm)/np.sqrt(len(dir_norm)))
     runtime_error.append(statistics.pstdev(dir_runtime)/np.sqrt(len(dir_runtime)))
     count_error.append(statistics.pstdev(dir_count)/np.sqrt(len(dir_count)))
+    overlap_error.append(statistics.pstdev(dir_overlap)/np.sqrt(len(dir_overlap)))
     
         
 print("average entropy:", entropies)
@@ -135,3 +150,5 @@ print("average entropy error:", entropy_error)
 print("average norm error:", norm_error)
 print("avereage runtime error:", runtime_error)       
 print("average overlapping sites error:", count_error)
+print("average overlap: ", overlap_list)
+print("average overlap error: ", overlap_error)
