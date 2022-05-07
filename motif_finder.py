@@ -8,6 +8,17 @@ from generate import convert_motif
 
 
 def find_best_pos(sequence, motif, background, ML):
+    """Scores the substrings in a sequence and returns the position of the substring selected by the softmax of all the scores
+
+    Args:
+        sequence (array): a 1d array of A, C, G, and Ts
+        motif (array): a 2d array representing a PWM
+        background (array): 2d array representing the background information of A, C, G, and T
+        ML (int): motif length
+
+    Returns:
+        np.random.choice(len(sequence)-ML+1, p=scores): a selected integer representing the substring index based on the score probability distribution
+    """
     nuc_dict = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
     scores = np.zeros(len(sequence)-ML+1)
     for i in range(len(sequence)-ML+1):
@@ -25,6 +36,17 @@ def find_best_pos(sequence, motif, background, ML):
     return np.random.choice(len(sequence)-ML+1, p=scores)
 
 def gibbs_find_motif(sequence_strs, ML):
+    """Gibbs sampling algorithm to find the motif
+
+    Args:
+        sequence_strs (array of strings): all the sequences in a fasta file
+        ML (int): motif length
+
+    Returns:
+        motif/sequences.shape[1](array): the predicted PWM 
+        sequence_pos(array): an array of sites(integers)
+        (stop-start)(float): runtime of algorithm
+    """
     start = timeit.default_timer()
     sequence_list = np.array([[i for i in x] for x in sequence_strs])
     background = np.zeros((sequence_list.shape[0], 4))
