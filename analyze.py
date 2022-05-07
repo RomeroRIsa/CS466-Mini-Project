@@ -124,11 +124,11 @@ for directory in directories:
     count_error.append(statistics.pstdev(dir_count)/np.sqrt(len(dir_count)))
     
         
-print("entropy:", entropies)
-print("norm:", norm_list)
+print("average entropy:", entropies)
+print("average norm:", norm_list)
 print("average overlapping sites:", count_list)
-print("runtime:", runtime_list)
-print("entropy error:", entropy_error)
-print("norm error:", norm_error)
-print("runtime error:", runtime_error)       
+print("average runtime:", runtime_list)
+print("average entropy error:", entropy_error)
+print("average norm error:", norm_error)
+print("avereage runtime error:", runtime_error)       
 print("average overlapping sites error:", count_error)
